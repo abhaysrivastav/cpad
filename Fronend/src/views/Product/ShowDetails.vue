@@ -25,7 +25,17 @@
           </div>
         </div>
 
-        <!-- Dummy placeholder features -->
+        <button id="wishlist-button" class="btn mr-3 p-1 py-0" style="background-color: #b3a594"
+                @click="addToWishList(this.id)">
+          Add to wishlist
+        </button>
+
+        <!-- Add to cart button-->
+        <button type="button" id="add-to-cart-button" class="btn" @click="addToCart(this.id)">
+          Add to Cart
+          <ion-icon name="cart-outline" v-pre></ion-icon>
+        </button>
+
         <div class="features pt-3">
           <h5><strong>Features</strong></h5>
         </div>
@@ -37,6 +47,8 @@
 </template>
 
 <script>
+var axios = require('axios')
+import swal from 'sweetalert';
 export default {
   data(){
     return {
@@ -48,12 +60,58 @@ export default {
   },
   props : ["baseURL","products", "categories"],
   methods:{
+    addToWishList(productId){
+      axios.post(`${this.baseURL}wishlist/add?token=${this.token}`, {
+        id:productId
+      }).then((response) => {
+        if(response.status==201) {
+          swal({
+            text: "Added to WishList. Please continue",
+            icon: "success"
+          });
+        }
+      },(error) =>{
+        console.log(error)
+        swal({
+          text: "Something wrong with add to wishlist",
+          icon: "error",
+          closeOnClickOutside: false,
+        });
+
+      });
+    },
+
+    addToCart(productId){
+      // post productId and quantity
+      axios.post(`${this.baseURL}cart/add?token=${this.token}`,{
+        productId : productId,
+        quantity : this.quantity
+      }).then((response) => {
+        // success
+        if(response.status==201){
+          swal({
+            text: "Product Added to the cart!",
+            icon: "success",
+            closeOnClickOutside: false,
+          });
+        }
+      },(error) =>{
+        // error handling
+        console.log(error)
+        swal({
+          text: "Something wrong with add to cart",
+          icon: "error",
+          closeOnClickOutside: false,
+        });
+      });
+    },
 
   },
   mounted() {
     this.id = this.$route.params.id;
     this.product = this.products.find(product => product.id == this.id);
     this.category = this.categories.find(category => category.id == this.product.categoryId);
+    this.token = localStorage.getItem('token');
   }
 }
 </script>
@@ -73,6 +131,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+#add-to-cart-button {
+  background-color: #febd69;
 }
 
 </style>

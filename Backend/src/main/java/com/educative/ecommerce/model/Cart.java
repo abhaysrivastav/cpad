@@ -7,33 +7,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
-@Table(name = "tokens")
-public class AuthenticationToken {
-
+@Table(name="cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    private String token;
 
     @Column(name = "created_date")
     private Date createdDate;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public AuthenticationToken(User user) {
+    private int quantity;
+
+    public Cart() {
+    }
+
+    public Cart(Product product, int quantity, User user){
         this.user = user;
+        this.product = product;
+        this.quantity = quantity;
         this.createdDate = new Date();
-        this.token = UUID.randomUUID().toString();
     }
 
     public Integer getId() {
@@ -44,20 +49,20 @@ public class AuthenticationToken {
         this.id = id;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String Token) {
-        this.token = Token;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public User getUser() {
@@ -68,7 +73,11 @@ public class AuthenticationToken {
         this.user = user;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
-    public AuthenticationToken() {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

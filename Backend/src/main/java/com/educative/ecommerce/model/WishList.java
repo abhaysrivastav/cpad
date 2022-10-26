@@ -7,33 +7,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
-@Table(name = "tokens")
-public class AuthenticationToken {
+@Table(name = "wishlist")
+public class WishList {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    private String token;
-
-    @Column(name = "created_date")
-    private Date createdDate;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public AuthenticationToken(User user) {
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public WishList() {
+    }
+
+
+    public WishList(User user, Product product) {
         this.user = user;
+        this.product = product;
         this.createdDate = new Date();
-        this.token = UUID.randomUUID().toString();
     }
 
     public Integer getId() {
@@ -44,12 +50,12 @@ public class AuthenticationToken {
         this.id = id;
     }
 
-    public String getToken() {
-        return token;
+    public User getUser() {
+        return user;
     }
 
-    public void setToken(String Token) {
-        this.token = Token;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreatedDate() {
@@ -60,15 +66,12 @@ public class AuthenticationToken {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
-        return user;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
-    public AuthenticationToken() {
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
+

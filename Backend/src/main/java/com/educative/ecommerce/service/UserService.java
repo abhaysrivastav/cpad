@@ -51,7 +51,7 @@ public class UserService {
         User user = new User(signupDto.getFirstName(), signupDto.getLastName(), signupDto.getEmail(), encryptedPassword );
         try {
             // save the User
-            userRepository.save(user);
+             userRepository.save(user);
             // generate token for user
             final AuthenticationToken authenticationToken = new AuthenticationToken(user);
             // save token in database
