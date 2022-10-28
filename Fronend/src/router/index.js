@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import AddCategory from "../views/Category/AddCategory";
-import Category from "../views/Category";
+import Category from "../views/Category/Category";
 import AddProduct from "../views/Product/AddProduct";
 import Product from "../views/Product/Product";
 import ShowDetails from "../views/Product/ShowDetails";
 import Signup from "../views/Signup";
 import Signin from "../views/Signin";
-import WishList from "../views/Product/WishList";
+import WishList from "../views/Product/ WishList";
 import Cart from "../views/cart/Cart";
 
 const routes = [
