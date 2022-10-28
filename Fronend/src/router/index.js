@@ -7,7 +7,7 @@ import Product from "../views/Product/Product";
 import ShowDetails from "../views/Product/ShowDetails";
 import Signup from "../views/Signup";
 import Signin from "../views/Signin";
-import WishList from "../views/Product/ WishList";
+import WishList from "../views/Product/WishList";
 import Cart from "../views/cart/Cart";
 
 const routes = [
