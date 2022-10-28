@@ -23,7 +23,7 @@
       <form class="form-inline ml-auto mr-auto">
         <div class="input-group">
           <input
-              size="100"
+              size="50"
               type="text"
               class="form-control"
               placeholder="Search Items"
@@ -50,6 +50,30 @@
       </form>
       <!--      DropDowns-->
       <ul class="navbar-nav ml-auto">
+      
+         <!--      Doctors drop down-->
+              <li class="nav-item dropdown">
+                <a
+                    class="nav-link text-light dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownAdmin"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                  Appointments
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+                  <router-link class="dropdown-item" :to="{ name: 'Home' }"
+                  >Book Doctor Appointment</router-link>
+                  <router-link class="dropdown-item" :to="{ name: 'Home' }"
+                  >Book Lab Appointment</router-link>
+                  <router-link class="dropdown-item" :to="{ name: 'Home' }"
+                  >Order Medicines</router-link>
+                </div>
+              </li>
+      
         <!--      Admin drop down-->
         <li class="nav-item dropdown">
           <a
