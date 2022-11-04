@@ -2,16 +2,19 @@ package com.educative.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {
@@ -24,6 +27,13 @@ public class Product {
     private @NotNull String imageURL;
     private @NotNull double price;
     private @NotNull String description;
+
+    private String sku;
+    private boolean active;
+    @CreationTimestamp
+    private LocalDateTime dateCreated;
+    @UpdateTimestamp
+    private LocalDateTime dateUpdated;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

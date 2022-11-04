@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductService implements ProductServiceInterface{
 
     @Autowired
     private ProductRepository productRepository;
@@ -65,5 +65,18 @@ public class ProductService {
         return optionalProduct.get();
 
 
+    }
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+    @Override
+    public List<Product> searchProducts(String query) {
+        List<Product> products = productRepository.searchProductsSQL(query);
+        return products;
+    }
+
+    @Override
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
     }
 }

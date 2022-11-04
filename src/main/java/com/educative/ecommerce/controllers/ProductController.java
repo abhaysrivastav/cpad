@@ -4,6 +4,7 @@ package com.educative.ecommerce.controllers;
 import com.educative.ecommerce.common.ApiResponse;
 import com.educative.ecommerce.dto.product.ProductDto;
 import com.educative.ecommerce.model.Category;
+import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.service.CategoryService;
 import com.educative.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,19 @@ public class ProductController {
         productService.updateProduct(productID, productDto, category);
         return new ResponseEntity<>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
     }
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam("query") String query){
+        return ResponseEntity.ok(productService.searchProducts(query));
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product){
+        return productService.createProduct(product);
+    }
 }
+
