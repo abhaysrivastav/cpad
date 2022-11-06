@@ -4,6 +4,7 @@ package com.assignment.medicalapp.controllers;
 import com.assignment.medicalapp.common.ApiResponse;
 import com.assignment.medicalapp.dto.product.ProductDto;
 import com.assignment.medicalapp.model.Category;
+import com.assignment.medicalapp.model.Product;
 import com.assignment.medicalapp.service.CategoryService;
 import com.assignment.medicalapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,19 @@ public class ProductController {
         Category category = optionalCategory.get();
         productService.updateProduct(productID, productDto, category);
         return new ResponseEntity<>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
+    }
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam("query") String query){
+        return ResponseEntity.ok(productService.searchProducts(query));
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product){
+        return productService.createProduct(product);
     }
 }

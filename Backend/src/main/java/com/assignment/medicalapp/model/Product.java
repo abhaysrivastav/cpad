@@ -2,6 +2,15 @@ package com.assignment.medicalapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
