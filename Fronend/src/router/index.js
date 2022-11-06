@@ -61,6 +61,11 @@ const routes = [
     name: 'WishList',
     component: WishList
   },
+ {
+    path: '/admin/product/search',
+    name:'Search',
+    component: Search
+  },
   {
     path : '/cart',
     name : 'Cart',
